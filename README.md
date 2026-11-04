@@ -8,6 +8,10 @@ LDACS2210 - Information Visualisation project
 4. Kaplan-Meier curves selon NPI
 5. Survival selon Integrative Cluster (molecular subtype of the cancer)
 6. Heatmap de corrélation entre attributs cliniques
+7. Proportions de femmes ayant subi Masectomie ont radiotherapy / chemiotherapy / hormone therapy VS celles qui ont breast conserving
+8. Histogrammes pour les différents mRNA z-score (voir si centré en 0, qui est la valeur "normale"; mettre en évidence la skewness et l'écart-type)
+9. Display genes with the most mutations
+
 
 ## Visualisation ideas
 1. Survie (overall_survival) en fonction du pam50_+_claudin-low_subtype
@@ -27,3 +31,23 @@ LDACS2210 - Information Visualisation project
 
 ## Questions
 - Quelle utilisation attendue des scores mRNA ? Parce que beaucoup tmtc
+    - 
+- Professeur Lee a dit pas de pie chart, mais pourquoi exactement ?
+- Utilisation des librairies : on a pas de restriction mais on doit implémenter les algorithmes ?
+    - faire attention au bruit et tout, mais en vrai, on peut réimplémenter ou utiliser
+
+## A rechercher
+- Trouver une façon de mettre en évidence les z-scores anormaux (càd pas centré en 0 ou bien très grande variance) (pas encore une définition très claire de "anormal"). Peut-être bar chart de ceux avec la + grande moyenne en valeur absolue, mais ça tient pas compte de la variance alors
+- Utiliser les articles déjà publiés sur le dataset
+
+## A faire attention
+- Les daltoniens
+- Pas un temps de chargement de 10 minutes
+
+## Notes
+- PCA par type de données (sur les z-scores)
+- Tradeoff entre clustering puis reduction dimension ou l'inverse (quand est-ce qu'on perd les données en gros)
+- Faire attention au pré-processing et tout pour le computationel pas trop mal
+- Il y a une structure forte dans le dataset avec des clusters déjà séparés
+- Pouvoir identifier les petites populations de gènes
+-
