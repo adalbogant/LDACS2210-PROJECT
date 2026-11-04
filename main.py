@@ -2,58 +2,64 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from lifelines import KaplanMeierFitter
+from missing_values_inputation.load_data import load_inputed_data
 from dash import Dash, html, dcc, Input, Output, callback
 
-df = pd.read_csv("data/METABRIC.csv", low_memory=False)
+FILEPATH = "data/METABRIC.csv"
 
 # Kaplan Meier curves are a common way to visualise survival data
 # Also drop values for now since I just want to get a working layout that displays an actual graph
-df2 = df.dropna(subset=["overall_survival_months", "nottingham_prognostic_index", "death_from_cancer"])
-df2 = df2.copy()
+df = load_inputed_data(FILEPATH)
+df = df.copy() # To avoid warnings about fragmentation
 
 # Define the thresholds to draw the different group of curves (found at https://link.springer.com/article/10.1007/s12253-008-9067-3)
 def npi_grouping(npi):
     if npi <= 2.4:
-        return "Excellent"
+        return "Excellent (< 2.4)"
     elif npi <= 3.4:
-        return "Good"
+        return "Good (< 3.4)"
     elif npi <= 4.4:
-        return "Moderate I"
+        return "Moderate I (< 4.4)"
     elif npi <= 5.4:
-        return "Moderate II"
+        return "Moderate II (< 5.4)"
     elif npi <= 6.4:
-        return "Poor"
-    return "Very Poor"
+        return "Poor (< 6.4)"
+    return "Very Poor (> 6.4)"
 
 # Create the filter column based on npi values
-df2["npi_group"] = df2["nottingham_prognostic_index"].apply(npi_grouping)
-df2["overall_survival_years"] = df2["overall_survival_months"]/12
+df["npi_group"] = df["nottingham_prognostic_index"].apply(npi_grouping)
+df["overall_survival_years"] = df["overall_survival_months"]/12
 
 # Green to Red color palette https://loading.io/color/feature/RdYlGn-6/
 colors = {
-    "Excellent":  "#1a9850",
-    "Good":       "#91cf60",
-    "Moderate I": "#d9ef8b",
-    "Moderate II":"#fee08b",
-    "Poor":       "#fc8d59",
-    "Very Poor":  "#d73027",
+    "Excellent (< 2.4)":  "#1a9850",
+    "Good (< 3.4)":       "#91cf60",
+    "Moderate I (< 4.4)": "#d9ef8b",
+    "Moderate II (< 5.4)":"#fee08b",
+    "Poor (< 6.4)":       "#fc8d59",
+    "Very Poor (> 6.4)":  "#d73027",
 }
 
-fig = go.Figure()
+graph_x_axis = df["death_from_cancer"]
+graph_y_axis = df["overall_survival_months"]
+
+fig_general = px.histogram(x=graph_x_axis, labels=graph_y_axis)
+
+fig_km = go.Figure()
 
 kaplan_meier = KaplanMeierFitter()
 
 for group, color in colors.items():
-    mask = df2["npi_group"] == group
-    time = df2.loc[mask, "overall_survival_years"]
-    event = df2.loc[mask, "death_from_cancer"] == "Died of Disease"
+    mask = df["npi_group"] == group
+    time = df.loc[mask, "overall_survival_years"]
+    event = df.loc[mask, "death_from_cancer"] == "Died of Disease"
     
     if len(time) == 0:
         continue
     
     kaplan_meier.fit(durations=time, event_observed=event, label=group)
     
-    fig.add_trace(go.Scatter(
+    fig_km.add_trace(go.Scatter(
         x=kaplan_meier.timeline,
         y=kaplan_meier.survival_function_[group],
         mode="lines",
@@ -61,7 +67,7 @@ for group, color in colors.items():
         line=dict(color=color)
     ))
     
-fig.update_layout(
+fig_km.update_layout(
     title="Kaplan-Meier curves for survival per NPI group",
     xaxis_title="Time (years)",
     yaxis_title="Probability of survival",
@@ -74,8 +80,14 @@ app.layout = html.Div(children=[
     html.H2(children="Kaplan-Meier : Survival with respect to Nottingham Prognostic Index"),
     dcc.Graph(
         id="km-nottingham",
-        figure=fig
+        figure=fig_km
     ),
+    
+    html.H2(children="Scatterplot Comparison graph"),
+    dcc.Graph(
+        id="generic-scatter",
+        figure=fig_general
+    )
 ])
 
 app.run()
