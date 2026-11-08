@@ -27,8 +27,8 @@ def input_mode_over_columns(df: pd.DataFrame, columns: list[str]) -> None:
     
         
 def input_tumor_size(df: pd.DataFrame) -> None:
-    mode = df.median(numeric_only=True)["tumor_size"]
-    df["tumor_size"] = df["tumor_size"].fillna(mode)
+    median_ = df.median(numeric_only=True)["tumor_size"]
+    df["tumor_size"] = df["tumor_size"].fillna(median_)
 
 
 def fill_unknown_columns(df: pd.DataFrame, columns: list[str]) -> None:
