@@ -47,7 +47,8 @@ LDACS2210 - Information Visualisation project
 ## Notes
 - PCA par type de données (sur les z-scores)
 - Tradeoff entre clustering puis reduction dimension ou l'inverse (quand est-ce qu'on perd les données en gros)
-- Faire attention au pré-processing et tout pour le computationel pas trop mal
+- Faire attention au pré-processing et tout pour le computationel pas trop mal ==> !! effcacité
 - Il y a une structure forte dans le dataset avec des clusters déjà séparés
 - Pouvoir identifier les petites populations de gènes
--
+- Beaucoup d'interactivité
+- Clustering hiérarchique est bien pour le dataset
