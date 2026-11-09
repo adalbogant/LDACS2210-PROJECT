@@ -31,6 +31,8 @@ df["npi_group"] = df["nottingham_prognostic_index"].apply(npi_grouping)
 df["overall_survival_years"] = df["overall_survival_months"]/12
 
 # Green to Red color palette https://loading.io/color/feature/RdYlGn-6/
+# TODO : find a way to have customisable palette, as this one is not accessible for protanopia and deuteranopia
+# (see https://davidmathlogic.com/colorblind/#%231A9850-%2391CF60-%23D9EF8B-%23FEE08B-%23FC8D59-%23D73027)
 colors = {
     "Excellent (< 2.4)":  "#1a9850",
     "Good (< 3.4)":       "#91cf60",

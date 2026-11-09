@@ -11,6 +11,9 @@ LDACS2210 - Information Visualisation project
 7. Proportions de femmes ayant subi Masectomie ont radiotherapy / chemiotherapy / hormone therapy VS celles qui ont breast conserving
 8. Histogrammes pour les différents mRNA z-score (voir si centré en 0, qui est la valeur "normale"; mettre en évidence la skewness et l'écart-type)
 9. Display genes with the most mutations
+10. Réduction de dimensions sur les z-scores: 
+    1. Proposer le choix de l'algorithme
+    2. Proposer le choix du coloring (3-gene-classifier-subtype, cohort...)
 
 
 ## Visualisation ideas
@@ -23,7 +26,9 @@ LDACS2210 - Information Visualisation project
 5. Gènes les + fréquemment mutés
 6. Clustering par type de traitement (voir si profils cliniques similaires)
 7. Lymph nodes examinés positifs selon PAM50 (box plot)
-8. Top XX (20?) des gènes les + mutés
+8. Top XX (20?) des gènes les + mutés (filtrable par portrait clinique)
+9. Essayer réduction de dimensions seulement sur mRNA z-scores "importants" parce que sinon, gros curse of dimension quand on réduit la dimension
+10. Corrélation entre mutations de certains gènes (heatmap de corrélation, binarisation des mutations)
 
 ## Ce qu'on a regardé mais qui était nul
 1. "Time to die" (survival months par rapport à death from cancer or other) -> pas intéressant
@@ -39,6 +44,7 @@ LDACS2210 - Information Visualisation project
 ## A rechercher
 - Trouver une façon de mettre en évidence les z-scores anormaux (càd pas centré en 0 ou bien très grande variance) (pas encore une définition très claire de "anormal"). Peut-être bar chart de ceux avec la + grande moyenne en valeur absolue, mais ça tient pas compte de la variance alors
 - Utiliser les articles déjà publiés sur le dataset
+- V de Cramèr & Test du chi² : // corrélation, mais pour variable catégorielle (mutations !!)
 
 ## A faire attention
 - Les daltoniens
@@ -52,3 +58,7 @@ LDACS2210 - Information Visualisation project
 - Pouvoir identifier les petites populations de gènes
 - Beaucoup d'interactivité
 - Clustering hiérarchique est bien pour le dataset
+
+## Autres idées en vrac
+- Pour les mutations : binariser et afficher selon muté / pas muté
+- Dans l'onglet Details : mentionner aussi les méthodes pour remplir les données missing etc.
