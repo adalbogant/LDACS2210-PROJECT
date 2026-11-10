@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 # from lifelines import KaplanMeierFitter
-from missing_values_inputation.load_data import load_inputed_data
+from preprocessing.load_data import load_imputed_data
 from dash import Dash, html, dcc, Input, Output, callback
 from utils import Header
 
@@ -10,7 +10,7 @@ FILEPATH = "data/METABRIC.csv"
 
 # Kaplan Meier curves are a common way to visualise survival data
 # Also drop values for now since I just want to get a working layout that displays an actual graph
-df = load_inputed_data(FILEPATH)
+df = load_imputed_data(FILEPATH)
 df = df.copy() # To avoid warnings about fragmentation
 
 # Define the thresholds to draw the different group of curves (found at https://link.springer.com/article/10.1007/s12253-008-9067-3)
