@@ -1,6 +1,6 @@
 .venv/
 
-METABRIC.csv
+METABRIC*.csv
 
 __pycache__/
 

@@ -39,7 +39,9 @@ def fill_unknown_columns(df: pd.DataFrame, columns: list[str]) -> None:
 def drop_outcome_data(df: pd.DataFrame) -> pd.DataFrame:
     return df.dropna(subset=["death_from_cancer"])
         
-
+"""
+    Return a dataframe containing the imputed values
+"""
 def load_imputed_data(filepath: str, display_logs=None) -> pd.DataFrame:
     df = pd.read_csv(filepath, low_memory=False)
     
@@ -56,3 +58,11 @@ def load_imputed_data(filepath: str, display_logs=None) -> pd.DataFrame:
         print(f"Size : {len(df)} - Missing values : {df.isnull().sum().sum()}")
 
     return df
+
+"""
+    Write CSV file with name filepath_out containing the data in filepath_in with imputations
+"""
+def write_imputed_data(filepath_in: str, filepath_out: str):
+    df_imputed = load_imputed_data(filepath_in)
+
+    df_imputed.to_csv(filepath_out)
