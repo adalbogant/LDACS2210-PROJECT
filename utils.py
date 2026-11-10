@@ -4,11 +4,11 @@ from dash import html, dcc
 
 def Header(app):
     # Br : break line
-    return html.Div([get_header(app), html.Br([]), get_menu()])
+    return html.Div([get_header(app), html.Br([]), get_menu()], className="main-header")
 
 def get_header(app):
     header = html.Div([
-        html.H4(app.title)
+        html.H2(app.title, className="header-title")
     ], className="header-row")
     return header
 
@@ -72,7 +72,7 @@ def get_menu():
             dcc.Link(
                 "Overview",
                 href="/dash-metabric-dashboard/",
-                className="tab first",
+                className="tab",
             ),
             dcc.Link(
                 "Survival",

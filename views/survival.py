@@ -2,15 +2,20 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 # from lifelines import KaplanMeierFitter
-from preprocessing.load_data import load_imputed_data
+from preprocessing.impute_missing_data import write_imputed_data
 from dash import Dash, html, dcc, Input, Output, callback
 from utils import Header
 
 FILEPATH = "data/METABRIC.csv"
+FILEPATH_IMPUTED = "data/METABRIC_imputed.csv"
 
 # Kaplan Meier curves are a common way to visualise survival data
 # Also drop values for now since I just want to get a working layout that displays an actual graph
-df = load_imputed_data(FILEPATH)
+try:
+    df = pd.read_csv(FILEPATH_IMPUTED, low_memory=False)
+except FileNotFoundError:
+    write_imputed_data(FILEPATH, FILEPATH_IMPUTED)
+    df = pd.read_csv(FILEPATH_IMPUTED)
 df = df.copy() # To avoid warnings about fragmentation
 
 # Define the thresholds to draw the different group of curves (found at https://link.springer.com/article/10.1007/s12253-008-9067-3)
@@ -34,13 +39,23 @@ df["overall_survival_years"] = df["overall_survival_months"]/12
 # Green to Red color palette https://loading.io/color/feature/RdYlGn-6/
 # TODO : find a way to have customisable palette, as this one is not accessible for protanopia and deuteranopia
 # (see https://davidmathlogic.com/colorblind/#%231A9850-%2391CF60-%23D9EF8B-%23FEE08B-%23FC8D59-%23D73027)
+# even better : https://davidmathlogic.com/colorblind/#%234A7BB7-%2398CAE1-%23EAECCC-%23FDB366-%23DD3D2D 
+# colors = {
+#     "Excellent (< 2.4)":  "#1a9850",
+#     "Good (< 3.4)":       "#91cf60",
+#     "Moderate I (< 4.4)": "#d9ef8b",
+#     "Moderate II (< 5.4)":"#fee08b",
+#     "Poor (< 6.4)":       "#fc8d59",
+#     "Very Poor (> 6.4)":  "#d73027",
+# }
+
 colors = {
-    "Excellent (< 2.4)":  "#1a9850",
-    "Good (< 3.4)":       "#91cf60",
-    "Moderate I (< 4.4)": "#d9ef8b",
-    "Moderate II (< 5.4)":"#fee08b",
-    "Poor (< 6.4)":       "#fc8d59",
-    "Very Poor (> 6.4)":  "#d73027",
+    "Excellent (< 2.4)":  "#4A7BB7",
+    "Good (< 3.4)":       "#98CAE1",
+    "Moderate I (< 4.4)": "#EAECCC",
+    "Moderate II (< 5.4)":"#FEDA88",
+    "Poor (< 6.4)":       "#F67E4B",
+    "Very Poor (> 6.4)":  "#A50026",
 }
 
 graph_x_axis = df["death_from_cancer"]
