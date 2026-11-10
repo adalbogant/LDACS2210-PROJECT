@@ -1,0 +1,27 @@
+.tab {
+  border-style: solid;
+  border-color: #639fab84;
+  background-color: #639fab;
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-radius:10px;
+  color: black;
+  padding: 10px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+/* 
+.tab.first {
+  border-left-style: none;
+} */
+
+body {
+  font-size: 1em;
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  color: #222;
+}

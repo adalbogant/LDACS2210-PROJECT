@@ -33,6 +33,8 @@ df["overall_survival_years"] = df["overall_survival_months"]/12
 # Green to Red color palette https://loading.io/color/feature/RdYlGn-6/
 # TODO : find a way to have customisable palette, as this one is not accessible for protanopia and deuteranopia
 # (see https://davidmathlogic.com/colorblind/#%231A9850-%2391CF60-%23D9EF8B-%23FEE08B-%23FC8D59-%23D73027)
+# maybe this one is not too terrible (green -> blue) : https://www.color-hex.com/color-palette/1034884
+# Color codes (hex) : C85200, E48646, CCCCCC, 6B8EA4, 366785 : https://davidmathlogic.com/colorblind/#%23C85200-%23E48646-%23CCCCCC-%236B8EA4-%23366785 
 colors = {
     "Excellent (< 2.4)":  "#1a9850",
     "Good (< 3.4)":       "#91cf60",

@@ -1,7 +1,6 @@
 from dash import html, dcc
 
 # Inspiration from https://github.com/plotly/dash-sample-apps/tree/main/apps/dash-financial-report 
-# TODO : change later
 
 def Header(app):
     # Br : break line
@@ -9,7 +8,7 @@ def Header(app):
 
 def get_header(app):
     header = html.Div([
-        html.H2(app.title)
+        html.H4(app.title)
     ], className="header-row")
     return header
 
@@ -66,7 +65,7 @@ def get_header(app):
 #     )
 #     return header
 
-
+# Tabs to display under the header (different types of visualization)
 def get_menu():
     menu = html.Div(
         [

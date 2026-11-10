@@ -49,6 +49,7 @@ LDACS2210 - Information Visualisation project
 ## A faire attention
 - Les daltoniens
 - Pas un temps de chargement de 10 minutes
+    - Par exemple : générer des csv déjà preprocess pour ne pas le faire en live à chaque fois
 
 ## Notes
 - PCA par type de données (sur les z-scores)
