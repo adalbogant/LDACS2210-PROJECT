@@ -3,6 +3,7 @@ LDACS2210 - Information Visualisation project
 
 ## Evidemment
 1. Histogramme des age at diagnostic
+    1. Mettre en évidence la médiane
 2. Bar chart des types PAM50
 3. Kaplan-Meier curves (survival) selon le PAM50
 4. Kaplan-Meier curves selon NPI

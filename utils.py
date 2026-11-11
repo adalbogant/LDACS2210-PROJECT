@@ -1,7 +1,9 @@
 from dash import html, dcc
 
-# Inspiration from https://github.com/plotly/dash-sample-apps/tree/main/apps/dash-financial-report 
+COLOR_PRIMARY_DARK = "#61C9A8"
+COLOR_SECONDARY_DARK = "#A53860"
 
+# Inspiration from https://github.com/plotly/dash-sample-apps/tree/main/apps/dash-financial-report 
 def Header(app):
     # Br : break line
     return html.Div([get_header(app), html.Br([]), get_menu()], className="main-header")
