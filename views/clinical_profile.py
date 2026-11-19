@@ -32,7 +32,7 @@ fig_age_histogram.update_layout(
 
 #### BAR CHART PAM50 TYPES ####
 fig_pam50_histogram = px.histogram(df, x="pam50_+_claudin-low_subtype", title="Distribution of PAM50 and Claudin-low subtype",
-                                   color_discrete_sequence=COLOR_SECONDARY_DARK)
+                                   color_discrete_sequence=[COLOR_SECONDARY_DARK])
 fig_pam50_histogram.update_layout(
     yaxis_title="Number of patients"
 )
@@ -51,3 +51,11 @@ def create_layout(app):
             figure=fig_pam50_histogram,
         ),
     ])
+
+@callback(
+    Output('pam50_histogram', 'figure'),
+    Input('age_histogram', 'hoverData'))
+def display_hover_data(hoverData):
+    print("SelectData : ", hoverData)
+    return px.histogram(df, x="pam50_+_claudin-low_subtype", title="Distribution of PAM50 and Claudin-low subtype",
+                                   color_discrete_sequence=[COLOR_PRIMARY_DARK])

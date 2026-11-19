@@ -30,6 +30,7 @@ LDACS2210 - Information Visualisation project
 8. Top XX (20?) des gènes les + mutés (filtrable par portrait clinique)
 9. Essayer réduction de dimensions seulement sur mRNA z-scores "importants" parce que sinon, gros curse of dimension quand on réduit la dimension
 10. Corrélation entre mutations de certains gènes (heatmap de corrélation, binarisation des mutations)
+11. comparer les distributions de zscores
 
 ## Ce qu'on a regardé mais qui était nul
 1. "Time to die" (survival months par rapport à death from cancer or other) -> pas intéressant
