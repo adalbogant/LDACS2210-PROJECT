@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-# from lifelines import KaplanMeierFitter
+from lifelines import KaplanMeierFitter
 from preprocessing.impute_missing_data import write_imputed_data
 from dash import Dash, html, dcc, Input, Output, callback
 from utils import Header
@@ -65,25 +65,25 @@ fig_general = px.histogram(x=graph_x_axis, labels=graph_y_axis)
 
 fig_km = go.Figure()
 
-# kaplan_meier = KaplanMeierFitter()
+kaplan_meier = KaplanMeierFitter()
 
-# for group, color in colors.items():
-#     mask = df["npi_group"] == group
-#     time = df.loc[mask, "overall_survival_years"]
-#     event = df.loc[mask, "death_from_cancer"] == "Died of Disease"
+for group, color in colors.items():
+    mask = df["npi_group"] == group
+    time = df.loc[mask, "overall_survival_years"]
+    event = df.loc[mask, "death_from_cancer"] == "Died of Disease"
     
-#     if len(time) == 0:
-#         continue
+    if len(time) == 0:
+        continue
     
-#     kaplan_meier.fit(durations=time, event_observed=event, label=group)
+    kaplan_meier.fit(durations=time, event_observed=event, label=group)
     
-#     fig_km.add_trace(go.Scatter(
-#         x=kaplan_meier.timeline,
-#         y=kaplan_meier.survival_function_[group],
-#         mode="lines",
-#         name=group,
-#         line=dict(color=color)
-#     ))
+    fig_km.add_trace(go.Scatter(
+        x=kaplan_meier.timeline,
+        y=kaplan_meier.survival_function_[group],
+        mode="lines",
+        name=group,
+        line=dict(color=color)
+    ))
     
 fig_km.update_layout(
     title="Kaplan-Meier curves for survival per NPI group",
